@@ -1,8 +1,12 @@
 <?php
   //sendgrid lib
   require("sendgrid-php/sendgrid-php.php");
+  require("functions.php");
 
   if (isset($_REQUEST['email']))  {
+    createTable("Lists");
+    createTable("ColdLists");
+
     $mail_to = $_REQUEST['email'];
     $message = $_REQUEST['message'];
     $subject = $_REQUEST['subject'];
@@ -20,10 +24,17 @@
     $status_code = $response->statusCode();
 
     if($status_code == 202){
-      echo "Message has been successfully sent";
+      insertTable("Lists", $mail_to);
+
+      //echo "Message has been successfully sent";
     } else {
-      echo "Sorry, something was wrong";
+      insertTable("ColdLists", $mail_to);
+
+      //echo "Sorry, something was wrong";
     }
+
+    $URL="https://engaged-email.herokuapp.com/lists.php";
+    header ("Location: $URL");
   } else {
 ?>
   <form method="post">
