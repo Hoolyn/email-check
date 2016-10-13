@@ -1,14 +1,25 @@
 <?php
+  //sendgrid lib
+  require("sendgrid-php/sendgrid-php.php");
+
   if (isset($_REQUEST['email']))  {
-    $to      = $_REQUEST['email'];
+    $mail_to = $_REQUEST['email'];
+    $from    = new SendGrid\Email(null, "testeproduction@gmail.com");
+    $to      = new SendGrid\Email(null, $mail_to);
     $subject = $_REQUEST['subject'];
     $message = $_REQUEST['message'];
-    $header  = "From: testeproduction@gmail.com" . "\r\n";
 
     //send email
-    $send = mail($to, $subject, $message, $header);
+    $mail = new SendGrid\Mail($from, $subject, $to, $message);
 
-    if($send){
+    $apiKey = getenv('SENDGRID_API_KEY');
+    $sg = new \SendGrid($apiKey);
+
+    $response = $sg->client->mail()->send()->post($mail);
+    $status_code = $response->statusCode();
+    echo $status_code;
+
+    if($status_code == 200){
       echo "Message has been successfully sent";
     } else {
       echo "Sorry, something was wrong";
