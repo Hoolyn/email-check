@@ -2,21 +2,16 @@
   require("connection.php");
 
   function createTable($table){
-    $sql    = "SELECT ID FROM $table";
-    $result = $conn->query($sql);
+    $sql = "CREATE TABLE $table (
+              id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+              email VARCHAR(50),
+              reg_date TIMESTAMP
+            )";
 
-    if(empty($result)) {
-      $sql = "CREATE TABLE $table (
-                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                email VARCHAR(50),
-                reg_date TIMESTAMP
-              )";
-
-      if ($conn->query($sql) === TRUE) {
-        echo "Table $table created successfully";
-      } else {
-        echo "Error creating table: " . $conn->error;
-      }
+    if ($conn->query($sql) === TRUE) {
+      echo "Table $table created successfully";
+    } else {
+      echo "Error creating table: " . $conn->error;
     }
 
     $conn->close();
