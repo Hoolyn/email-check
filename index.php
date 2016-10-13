@@ -19,11 +19,7 @@
     $response    = $sg->client->mail()->send()->post($mail);
     $status_code = $response->statusCode();
 
-    echo $status_code;
-    echo $response->headers();
-    echo $response->body();
-
-    if($status_code == 200){
+    if($status_code == 202){
       echo "Message has been successfully sent";
     } else {
       echo "Sorry, something was wrong";
