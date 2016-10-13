@@ -1,19 +1,24 @@
 <?php
   require("connection.php");
 
-  function createTable($table){
-    $sql = "CREATE TABLE " . $table . "(
+  function createTableLists(){
+    $sql = "CREATE TABLE Lists (
               id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
               email VARCHAR(50),
               reg_date TIMESTAMP
             )";
 
-    if ($conn->query($sql) === TRUE) {
-      echo "Table " . $table . " created successfully";
-    } else {
-      echo "Error creating table: " . $conn->error;
-    }
+    $conn->query($sql);
+    $conn->close();
+  }
+  function createTableColdLists(){
+    $sql = "CREATE TABLE ColdLists (
+              id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+              email VARCHAR(50),
+              reg_date TIMESTAMP
+            )";
 
+    $conn->query($sql);
     $conn->close();
   }
 
