@@ -9,15 +9,17 @@
     $subject = $_REQUEST['subject'];
     $message = $_REQUEST['message'];
 
-    //send email
     $mail = new SendGrid\Mail($from, $subject, $to, $message);
 
     $apiKey = getenv('SENDGRID_API_KEY');
-    $sg = new \SendGrid($apiKey);
+    $sg     = new \SendGrid($apiKey);
 
-    $response = $sg->client->mail()->send()->post($mail);
+    $response    = $sg->client->mail()->send()->post($mail);
     $status_code = $response->statusCode();
+
     echo $status_code;
+    echo $response->headers();
+    echo $response->body();
 
     if($status_code == 200){
       echo "Message has been successfully sent";
