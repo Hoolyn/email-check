@@ -4,12 +4,14 @@
 
   if (isset($_REQUEST['email']))  {
     $mail_to = $_REQUEST['email'];
+    $message = $_REQUEST['message'];
+    $subject = $_REQUEST['subject'];
+
     $from    = new SendGrid\Email(null, "testeproduction@gmail.com");
     $to      = new SendGrid\Email(null, $mail_to);
-    $subject = $_REQUEST['subject'];
-    $message = $_REQUEST['message'];
+    $content = new SendGrid\Content("text/plain", $message);
 
-    $mail = new SendGrid\Mail($from, $subject, $to, $message);
+    $mail = new SendGrid\Mail($from, $subject, $to, $content);
 
     $apiKey = getenv('SENDGRID_API_KEY');
     $sg     = new \SendGrid($apiKey);
