@@ -11,7 +11,12 @@
                 email VARCHAR(50),
                 reg_date TIMESTAMP
               )";
-      $conn->query($sql);
+
+      if ($conn->query($sql) === TRUE) {
+        echo "Table $table created successfully";
+      } else {
+        echo "Error creating table: " . $conn->error;
+      }
     }
 
     $conn->close();
