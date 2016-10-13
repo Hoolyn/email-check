@@ -3,9 +3,10 @@
   require("sendgrid-php/sendgrid-php.php");
   require("functions.php");
 
+  createTable("Lists");
+  createTable("ColdLists");
+
   if (isset($_REQUEST['email']))  {
-    createTable("Lists");
-    createTable("ColdLists");
 
     $mail_to = $_REQUEST['email'];
     $message = $_REQUEST['message'];
