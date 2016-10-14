@@ -1,28 +1,22 @@
 <?php
   require("connection.php");
 
-  function createTableLists(){
-    $sql = "CREATE TABLE Lists (
+  function createTable($table){
+    global $conn;
+
+    $sql = "CREATE TABLE $table (
               id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
               email VARCHAR(50),
               reg_date TIMESTAMP
             )";
-
     $conn->query($sql);
-    $conn->close();
-  }
-  function createTableColdLists(){
-    $sql = "CREATE TABLE ColdLists (
-              id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-              email VARCHAR(50),
-              reg_date TIMESTAMP
-            )";
 
-    $conn->query($sql);
     $conn->close();
   }
 
   function insertTable($table, $value){
+    global $conn;
+
     $sql = "INSERT INTO $table (email) VALUES ($value)";
     $conn->query($sql);
 
@@ -30,9 +24,11 @@
   }
 
   function getDataFrom($table){
-    $sql    = "SELECT id, email FROM $table";
-    $result = $conn->query($sql);
+    global $conn;
 
+    $sql    = "SELECT id, email FROM $table";
+
+    $result = $conn->query($sql);
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
