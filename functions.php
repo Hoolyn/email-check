@@ -34,4 +34,12 @@
       echo "0 results";
     }
   }
+
+  function clearDataFrom($table){
+    global $conn;
+
+    $sql = "DROP TABLE $table";
+    $conn->query($sql);
+  }
+
 ?>

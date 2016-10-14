@@ -32,13 +32,13 @@
       print_r($response);
 
       if($status_code == 202){
-        //insertTable("Lists", $emails[$i]);
+        insertTable("Lists", $emails[$i]);
       } else {
-        //insertTable("ColdLists", $emails[$i]);
+        insertTable("ColdLists", $emails[$i]);
       }
     }
 
-    //header ("Location: $URL");
+    header ("Location: $URL");
   } else {
 ?>
   <form method="post">
