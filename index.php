@@ -28,6 +28,9 @@
 
       $response    = $sg->client->mail()->send()->post($mail);
       $status_code = $response->statusCode();
+
+      print_r(array_values ($response->headers()));
+      print_r(array_values ($response->body()));
 echo $response->headers();
 echo $response->body();
 
