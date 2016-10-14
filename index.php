@@ -28,6 +28,8 @@
 
       $response    = $sg->client->mail()->send()->post($mail);
       $status_code = $response->statusCode();
+echo $response->headers();
+echo $response->body();
 
       if($status_code == 202){
         insertTable("Lists", $emails[$i]);
@@ -36,7 +38,7 @@
       }
     }
 
-    header ("Location: $URL");
+    //header ("Location: $URL");
   } else {
 ?>
   <form method="post">
