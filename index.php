@@ -29,15 +29,12 @@
       $response    = $sg->client->mail()->send()->post($mail);
       $status_code = $response->statusCode();
 
-      print_r(array_values ($response->headers()));
-      print_r(array_values ($response->body()));
-echo $response->headers();
-echo $response->body();
+      print_r($response);
 
       if($status_code == 202){
-        insertTable("Lists", $emails[$i]);
+        //insertTable("Lists", $emails[$i]);
       } else {
-        insertTable("ColdLists", $emails[$i]);
+        //insertTable("ColdLists", $emails[$i]);
       }
     }
 
