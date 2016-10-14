@@ -7,36 +7,33 @@
   createTable("ColdLists");
 
   if (isset($_REQUEST['email']))  {
-    $URL="https://engaged-email.herokuapp.com/lists.php";
+    $URL    = "https://engaged-email.herokuapp.com/lists.php";
+    $apiKey = getenv('SENDGRID_API_KEY');
+    $sg     = new \SendGrid($apiKey);
 
     $email_a = $_REQUEST['email'];
-
-    // treat array of emails
-    $emails = explode(",", $email_a);
-    $to     = new SendGrid\Email(null, $emails);
-
     $message = $_REQUEST['message'];
     $subject = $_REQUEST['subject'];
 
     $from    = new SendGrid\Email(null, "testeproduction@gmail.com");
     $content = new SendGrid\Content("text/plain", $message);
 
-    $mail = new SendGrid\Mail($from, $subject, $to, $content);
+    // treat array of emails
+    $emails    = explode(",", $email_a);
+    $arrlength = count($emails);
 
-    $apiKey = getenv('SENDGRID_API_KEY');
-    $sg     = new \SendGrid($apiKey);
+    for($i = 0; $i < $arrlength; $i++) {
+      $to   = new SendGrid\Email(null, $emails[$i]);
+      $mail = new SendGrid\Mail($from, $subject, $to, $content);
 
-    $response    = $sg->client->mail()->send()->post($mail);
-    $status_code = $response->statusCode();
+      $response    = $sg->client->mail()->send()->post($mail);
+      $status_code = $response->statusCode();
 
-    if($status_code == 202){
-      insertTable("Lists", $mail_to);
-
-      echo "Message has been successfully sent";
-    } else {
-      insertTable("ColdLists", $mail_to);
-
-      echo "Sorry, something was wrong";
+      if($status_code == 202){
+        insertTable("Lists", $emails[$i]);
+      } else {
+        insertTable("ColdLists", $emails[$i]);
+      }
     }
 
     header ("Location: $URL");
