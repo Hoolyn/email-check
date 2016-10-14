@@ -15,7 +15,7 @@
   function insertTable($table, $value){
     global $conn;
 
-    $sql = "INSERT INTO $table (email) VALUES ($value)";
+    $sql = "INSERT INTO $table (email) VALUES ('$value')";
     $conn->query($sql);
   }
 
