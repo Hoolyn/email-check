@@ -12,12 +12,8 @@
     $email_a = $_REQUEST['email'];
 
     // treat array of emails
-    $emails    = explode(",", $email_a);
-    $arrlength = count($emails);
-
-    for($x = 0; $x < $arrlength; $x++) {
-      $to .= new SendGrid\Email(null, $emails[$x]);
-    }
+    $emails = explode(",", $email_a);
+    $to     = new SendGrid\Email(null, $emails);
 
     $message = $_REQUEST['message'];
     $subject = $_REQUEST['subject'];
