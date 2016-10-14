@@ -7,7 +7,6 @@
   createTable("ColdLists");
 
   if (isset($_REQUEST['email']))  {
-
     $mail_to = $_REQUEST['email'];
     $message = $_REQUEST['message'];
     $subject = $_REQUEST['subject'];
@@ -27,15 +26,12 @@
     if($status_code == 202){
       insertTable("Lists", $mail_to);
 
-      //echo "Message has been successfully sent";
+      echo "Message has been successfully sent";
     } else {
       insertTable("ColdLists", $mail_to);
 
-      //echo "Sorry, something was wrong";
+      echo "Sorry, something was wrong";
     }
-
-    $URL="https://engaged-email.herokuapp.com/lists.php";
-    header ("Location: $URL");
   } else {
 ?>
   <form method="post">
