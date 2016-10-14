@@ -7,12 +7,22 @@
   createTable("ColdLists");
 
   if (isset($_REQUEST['email']))  {
-    $mail_to = $_REQUEST['email'];
+    $URL="https://engaged-email.herokuapp.com/lists.php";
+
+    $email_a = $_REQUEST['email'];
+
+    // treat array of emails
+    $emails    = explode(",", $email_a);
+    $arrlength = count($emails);
+
+    for($x = 0; $x < $arrlength; $x++) {
+      $to .= new SendGrid\Email(null, $emails[$x]);
+    }
+
     $message = $_REQUEST['message'];
     $subject = $_REQUEST['subject'];
 
     $from    = new SendGrid\Email(null, "testeproduction@gmail.com");
-    $to      = new SendGrid\Email(null, $mail_to);
     $content = new SendGrid\Content("text/plain", $message);
 
     $mail = new SendGrid\Mail($from, $subject, $to, $content);
@@ -32,6 +42,8 @@
 
       echo "Sorry, something was wrong";
     }
+
+    header ("Location: $URL");
   } else {
 ?>
   <form method="post">
