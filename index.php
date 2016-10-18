@@ -26,16 +26,7 @@
       $to   = new SendGrid\Email(null, $emails[$i]);
       $mail = new SendGrid\Mail($from, $subject, $to, $content);
 
-      $response    = $sg->client->mail()->send()->post($mail);
-      $status_code = $response->statusCode();
-
-      print_r($response);
-
-      if($status_code == 202){
-        insertTable("Lists", $emails[$i]);
-      } else {
-        insertTable("ColdLists", $emails[$i]);
-      }
+      $response = $sg->client->mail()->send()->post($mail);
     }
 
     header ("Location: $URL");
