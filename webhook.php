@@ -1,7 +1,7 @@
 <?php
   require("functions.php");
 
-  $array = $_POST;
+  $array = $_POST[0];
   error_log(print_r("array => ", TRUE));
   error_log(print_r($array, TRUE));
 
