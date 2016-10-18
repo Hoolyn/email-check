@@ -1,7 +1,7 @@
 <?php
   require("functions.php");
 
-  $array = $_REQUEST;
+  $array = $_POST;
   error_log(print_r("array => ", TRUE));
   error_log(print_r($array, TRUE));
 
@@ -11,6 +11,10 @@
 
   error_log(print_r($array[0], TRUE));
   error_log(print_r($array[0].email, TRUE));
+
+  error_log(print_r("email => ", TRUE));
+  error_log(print_r($array.email, TRUE));
+  error_log(print_r($array["email"], TRUE));
 
   for($i = 0; $i < $arrlength; $i++) {
     if ($array[$i].event == 'delivered'){
