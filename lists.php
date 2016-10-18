@@ -9,4 +9,3 @@
 
 <h1>ColdLists - Something was wrong.</h1>
 <?php getDataFrom("ColdLists"); ?>
-
