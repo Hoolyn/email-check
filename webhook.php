@@ -1,7 +1,7 @@
 <?php
   require("functions.php");
 
-  $array = $_POST;
+  $array = $HTTP_RAW_POST_DATA;
   error_log(print_r("array => ", TRUE));
   error_log(print_r($array, TRUE));
 
