@@ -28,7 +28,7 @@
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"] . " - Email: " . $row["email"] . "<br>";
+        echo $row["email"] . "<br>";
       }
     } else {
       echo "0 results";
